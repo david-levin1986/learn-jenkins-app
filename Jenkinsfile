@@ -3,8 +3,13 @@ pipeline {
 
     stages {
         stage('Build') {
+            /* 
+            stage Build
+            crate docker alpine
+            set all file to be in same location
+            */
             agent {
-                docker {
+                docker {                
                     image 'node:18-alpine'
                     reuseNode true
                 }
@@ -37,9 +42,11 @@ pipeline {
 
         }
     }
+    /*
     post {
         always {
             junit 'test-results/junit.xml'
         }
     }
+    */
 }
