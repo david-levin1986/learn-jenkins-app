@@ -2,13 +2,13 @@ pipeline {
     agent any
 
     stages {
-        stage('test docker alpine') {
+        stage('test docker jammy') {
             steps {
-                echo 'testing docker alpine'
+                echo 'testing docker jammy'
             }
             agent {
                 docker {
-                    image 'node:18-alpine'
+                    image 'mcr.microsoft.com/playwright:v1.39.0-jammy'
                     reuseNode true
                 }
             }
