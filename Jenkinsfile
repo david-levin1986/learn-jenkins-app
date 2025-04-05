@@ -6,9 +6,7 @@ pipeline {
             steps {
                 echo 'testing docker alpine'
             }
-            steps {
-                echo 'testing docker microsoft'
-            }
+           
         }
         
     }
