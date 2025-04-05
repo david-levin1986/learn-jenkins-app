@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stages('Massege') {
+        stage('Massege') {
             steps {
                 '''
                 echo "Building Docker Alpine"
