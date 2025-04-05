@@ -27,6 +27,7 @@ pipeline {
         stage('Test') {
             agent {
                 docker {
+                    echo "Starting deploy docker alpine 18"
                     image 'node:18-alpine'
                     reuseNode true
                 }
@@ -43,6 +44,7 @@ pipeline {
         stage('E2E') {
             agent {
                 docker {
+                    echo "starting deploy docker jammy"
                     image 'mcr.microsoft.com/playwright:v1.40.0-jammy'
                    // reuseNode true
                 }
@@ -50,6 +52,7 @@ pipeline {
 
             steps {
                 sh '''
+                    echo "starting npm"
                     npm install serve
                     node_modules/.bin/serve -s build &
                     sleep 10
