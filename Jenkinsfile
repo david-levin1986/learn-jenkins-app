@@ -32,8 +32,8 @@ pipeline {
             } 
         }*/
 
-        stage ('Run Test Paralel') {
-            paralel {
+        stage ('Run Test Parallel') {
+            parallel {
                 stage ('Unit Test') {
                     agent {
                         docker {
