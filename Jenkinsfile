@@ -2,16 +2,32 @@ pipeline {
     agent any
 
     stages {
-        stage('Docker Alpine') {
+        stages('Massege') {
             steps {
-                echo 'building Docker Alpine'
+                '''
+                echo "Building Docker Alpine"
+                '''
             }
+        }
+        stage('Docker Alpine') {
+            
             agent {
                 docker {
                     image 'node:18-alpine'
                     reuseNode true
                 }
             }
+             steps {
+                sh '''
+                    echo "starting npm"
+                    ls -la
+                    node --version
+                    npm --version
+                    npm cli
+                    npm run build
+                    ls -la
+                '''
+            } 
         }
     }
 }
