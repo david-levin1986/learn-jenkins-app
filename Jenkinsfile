@@ -72,5 +72,11 @@ pipeline {
             }
         }
 
+        post {
+            always {
+                junit 'jest-results/juit.xml'
+            }
+        }
+
     }
 }
