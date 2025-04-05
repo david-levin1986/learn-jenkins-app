@@ -2,17 +2,14 @@ pipeline {
     agent any
 
     stages {
-        stage('Hello') {
+        stage('test docker alpine') {
             steps {
-                echo 'Hello World'
+                echo 'testing docker alpine'
+            }
+            steps {
+                echo 'testing docker microsoft'
             }
         }
-        stage('Test Docker alpine') {
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                    reuseNode true
-                }
-            }
+        
     }
 }
