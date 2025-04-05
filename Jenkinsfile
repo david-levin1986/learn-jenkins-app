@@ -50,8 +50,6 @@ pipeline {
             steps {
                 sh '''
                 echo "Buildin Docker Microsft"
-                date +%H:%M:%S
-                echo "this step will take abut 12 minets"
                 '''
             }
         }
@@ -65,10 +63,10 @@ pipeline {
             }
             steps {
                 sh '''
-                date +%H:%M:%S
                 echo "Starting Test stage"
-                test -f build/index.html
-                npm test
+                npm install -g serve
+                serve -s build
+                npx playwright test
                 '''
             }
         }
