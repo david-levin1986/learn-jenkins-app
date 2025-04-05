@@ -51,10 +51,10 @@ pipeline {
             }
             steps {
                 sh '''
-                    echo "Starting E2E"
-                    npm install serve
-                    serve -s build
-                    npx playwright test
+                echo "Starting E2E"
+                npm install serve
+                serve -s build
+                npx playwright test
                 '''
             }
 
