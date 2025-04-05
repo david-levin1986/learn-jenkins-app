@@ -39,10 +39,39 @@ pipeline {
             }
             steps {
                 sh '''
+                echo "Starting Test stage"
                 test -f build/index.html
                 npm test
                 '''
             }
         }
+
+        stage ('Massege Microdoft Docker') {
+            steps {
+                sh '''
+                echo "Buildin Docker Microsft"
+                date +%H:%M:%S
+                echo "this step will take abut 12 minets"
+                '''
+            }
+        }
+
+        stage ('E2E') {
+            agent {
+                docker {
+                    image 'node:18-alpine'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh '''
+                date +%H:%M:%S
+                echo "Starting Test stage"
+                test -f build/index.html
+                npm test
+                '''
+            }
+        }
+
     }
 }
