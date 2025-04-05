@@ -4,9 +4,10 @@ pipeline {
     stages {
         stage('Massege') {
             steps {
-                '''
+                sh '''
                 echo "Building Docker Alpine"
                 '''
+                
             }
         }
         stage('Docker Alpine') {
