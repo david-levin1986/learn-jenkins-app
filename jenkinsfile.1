@@ -2,8 +2,16 @@ pipeline {
     agent any
 
     stages {
-             
-        stage('Build') {
+        stage('Massege') {
+            steps {
+                sh '''
+                echo "Building Docker Alpine"
+                '''
+                
+            }
+        }
+        
+        stage('Docker Alpine') {
             
             agent {
                 docker {
@@ -12,7 +20,8 @@ pipeline {
                 }
             }
              steps {
-                sh '''                   
+                sh '''
+                    echo "starting npm"
                     ls -la
                     node --version
                     npm --version
@@ -23,7 +32,7 @@ pipeline {
             } 
         }
 
-        stage ('Test') {
+        stage ('Run Test Parallel') {
             parallel {
                 stage ('Unit Test') {
                     agent {
@@ -79,22 +88,6 @@ pipeline {
 
                 }               
             }
-        }
-
-        stage('Deploy') {
-            
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                    reuseNode true
-                }
-            }
-             steps {
-                sh '''                   
-                  npm install netlify-cli -g
-                  netlify --version  
-                '''
-            } 
         }
 
     }
