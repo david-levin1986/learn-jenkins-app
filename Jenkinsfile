@@ -126,6 +126,14 @@ pipeline {
             } 
         }
 
+                stage ('Qution befor continue') {
+                     steps {
+            timeout(10) {
+                        input message: 'Ar you Aprove the Deployment ?', ok: 'Yes'
+
+                     }  
+            }
+
                 stage ('Prod E2E') {
             agent {
                 docker {
