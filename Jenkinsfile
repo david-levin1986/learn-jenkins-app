@@ -96,6 +96,7 @@ pipeline {
             }
              steps {
                 sh '''
+                echo "litel change"
                 echo "Start Installitin of netlify-cli"
                 npm install netlify-cli
                 node_modules/.bin/netlify --version  
