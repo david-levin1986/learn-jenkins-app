@@ -119,7 +119,7 @@ pipeline {
                 }
             }
             environment {
-                CI_ENVIRONMENT_URL = '${env.Dev_URL}'
+                CI_ENVIRONMENT_URL = "${env.Dev_URL}"
             }
 
             steps {
