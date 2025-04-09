@@ -114,7 +114,7 @@ pipeline {
                 }
             }
             environment {
-                CI_ENVIRONMENT_IRL = 'https://astounding-beignet-b6814d.netlify.app'
+                CI_ENVIRONMENT_URL = 'https://astounding-beignet-b6814d.netlify.app'
             }
 
             steps {
