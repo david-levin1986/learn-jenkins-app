@@ -92,14 +92,17 @@ pipeline {
                     image 'mcr.microsoft.com/playwright:v1.39.0-jammy'
                     reuseNode true
                 }
-
+            }
+              environment {
+                CI_ENVIRONMENT_URL = 'DEV_URL_TO_BE_SET'
+            }
             steps {
                 sh '''
                 npm install netlify-cli node-jq
                 node_modules/.bin/netlify --version  
                 echo "Deploing to SiteDev Site ID: $NETLIFY_SITE_ID"
                 node_modules/.bin/netlify status
-                I_ENVIRONMENT_URL=$(node_modules/.bin/netlify deploy --dir=build --json > deploy-output.json)
+                CI_ENVIRONMENT_URL=$(node_modules/.bin/netlify deploy --dir=build --json > deploy-output.json)
                 node_modules/.bin/node-jq -r '.deploy_url' deploy-output.json
                 npx playwright test --reporter=html
                 '''
@@ -110,8 +113,8 @@ pipeline {
                     publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, icon: '', keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'Dev E2E', reportTitles: '', useWrapperFileDirectly: true])
                 }
             }
-
-        } 
+        }
+     
         stage ('Aprovel') {
                      steps {
                         timeout(10) {
