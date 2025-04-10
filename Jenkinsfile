@@ -17,7 +17,7 @@ pipeline {
                 }
             }
              steps {
-                sh '''                   
+                sh '''                
                     ls -la
                     node --version
                     npm --version
@@ -185,6 +185,7 @@ pipeline {
             post {
                 always {
                     publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, icon: '', keepAll: false, reportDir: 'playwright-report', reportFiles: 'index.html', reportName: 'Prod E2E', reportTitles: '', useWrapperFileDirectly: true])
+                    
                 }
             }
 
