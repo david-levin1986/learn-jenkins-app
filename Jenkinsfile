@@ -57,7 +57,7 @@ pipeline {
                     }                    
                 }
 
-                stage ('Massege my-ms-playwright Docker') {
+                stage ('My Custom Docker') {
                     steps {
                         sh '''
                         echo "Buildin Docker my-ms-playwright"
@@ -68,7 +68,7 @@ pipeline {
                 stage ('E2E Local') {
                     agent {
                         docker {
-                            image 'mcr.microsoft.com/playwright:v1.39.0-jammy'
+                            image 'my-ms-playwright'
                             reuseNode true
                         }
                     }
