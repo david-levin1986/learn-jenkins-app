@@ -57,10 +57,10 @@ pipeline {
                     }                    
                 }
 
-                stage ('Massege Microdoft Docker') {
+                stage ('Massege my-ms-playwright Docker') {
                     steps {
                         sh '''
-                        echo "Buildin Docker Microsft"
+                        echo "Buildin Docker my-ms-playwright"
                         '''
                     }
                 }
@@ -96,19 +96,19 @@ pipeline {
             
             agent {
                 docker {
-                    image 'node:18-alpine'
+                    image 'my-ms-playwright'
                     reuseNode true
                 }
             }
              steps {
                 sh '''
                 echo "Start Installitin of netlify-cli"
-                npm install netlify-cli node-jq
-                node_modules/.bin/netlify --version  
+                
+                netlify --version  
                 echo "Deploing to SiteDev Site ID: $NETLIFY_SITE_ID"
-                node_modules/.bin/netlify status
-                node_modules/.bin/netlify deploy --dir=build --json > deploy-output.json
-                node_modules/.bin/node-jq -r '.deploy_url' deploy-output.json
+                netlify status
+                netlify deploy --dir=build --json > deploy-output.json
+                node-jq -r '.deploy_url' deploy-output.json
                 '''
                 script {
                 env.Dev_URL = sh(script: "node_modules/.bin/node-jq -r '.deploy_url' deploy-output.json", returnStdout: true)
@@ -120,7 +120,7 @@ pipeline {
                 stage ('Dev E2E') {
             agent {
                 docker {
-                    image 'mcr.microsoft.com/playwright:v1.39.0-jammy'
+                    image 'my-ms-playwright'
                     reuseNode true
                 }
             }
@@ -145,18 +145,16 @@ pipeline {
             
             agent {
                 docker {
-                    image 'node:18-alpine'
+                    image 'my-ms-playwright'
                     reuseNode true
                 }
             }
              steps {
                 sh '''
-                echo "Start Installitin of netlify-cli"
-                npm install netlify-cli node-jq
-                node_modules/.bin/netlify --version  
+                netlify --version  
                 echo "Deploing to Site ID: $NETLIFY_SITE_ID"
-                node_modules/.bin/netlify status
-                node_modules/.bin/netlify deploy --dir=build --prod
+                netlify status
+                netlify deploy --dir=build --prod
                 '''
             } 
         }
@@ -166,7 +164,7 @@ pipeline {
                 stage ('Prod E2E') {
             agent {
                 docker {
-                    image 'mcr.microsoft.com/playwright:v1.39.0-jammy'
+                    image 'my-ms-playwright'
                     reuseNode true
                 }
             }
