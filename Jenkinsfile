@@ -8,6 +8,12 @@ pipeline {
     }
 
     stages {
+
+        stage('AWS') {
+            sh'''
+                aws --version
+            '''
+        }
              
         stage('Build') {
             
