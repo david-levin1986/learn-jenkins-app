@@ -8,6 +8,11 @@ pipeline {
     }
 
     stages {
+        stage {
+            steps {
+                sh 'docker build -t my-ms-playwright .'
+            }
+        }
              
         stage('Build') {
             
