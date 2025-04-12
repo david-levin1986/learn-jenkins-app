@@ -45,7 +45,7 @@ pipeline {
                     // some block
                     sh '''
                     aws --version
-                    asw s3 sync build s3://$MY_BUCKET
+                    aws s3 sync build s3://$MY_BUCKET
                     '''
                 }                
                     
