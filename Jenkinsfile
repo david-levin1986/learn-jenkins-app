@@ -4,6 +4,9 @@ pipeline {
     environment {
         REACT_APP_VERSION = "1.0.$BUILD_ID"
         AWS_DEFAULT_REGION = 'us-east-1'
+        AWC_ECS_CLS = 'Jenkins-Cls-Prd'
+        AWS_ECS_SERVICE = 'JenkinsApp-Service-Prod'
+        AWS_ECS_TASK = 'JenkinsApp-TaskDefinition-Prod'
     }
 
     stages {
@@ -25,9 +28,8 @@ pipeline {
                     aws --version
                     yum install jq -y
                     LATES_REVISION=$(aws ecs register-task-definition --cli-input-json file://AWS/task-definition-prod.json | jq '.taskDefinition.revision')
-                    echo $LATES_REVISION
-                    aws ecs update-service --cluster Jenkins-Cls-Prd --service JenkinsApp-Service-Prod --task-definition JenkinsApp-TaskDefinition-Prod:$LATES_REVISION
-                    aws ecs wait services-stable --cluster Jenkins-Cls-Prd --service JenkinsApp-Service-Prod
+                    aws ecs update-service --cluster $AWC_ECS_CLS --service $AWS_ECS_SERVICE --task-definition $AWS_ECS_TASK:$LATES_REVISION
+                    aws ecs wait services-stable --cluster $AWC_ECS_CLS --service $AWS_ECS_SERVICE
                     '''
                 }                
                     
