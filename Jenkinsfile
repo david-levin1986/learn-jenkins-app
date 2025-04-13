@@ -13,7 +13,7 @@ pipeline {
                 docker {
                     image 'amazon/aws-cli'
                     reuseNode true
-                    args "--entrypoint=''"
+                    args "-u --entrypoint=''"
                 }
             }
             
@@ -23,9 +23,10 @@ pipeline {
                     // some block
                     sh '''
                     aws --version
-                    yum install jq -y
-                    $(aws ecs register-task-definition --cli-input-json file://AWS/task-definition-prod.json | jq '.taskDefinition.revision')
-                    aws ecs update-service --cluster Jenkins-Cls-Prd --service JenkinsApp-Service-Prod --task-definition JenkinsApp-TaskDefinition-Prod:2
+                    dnf install jq -y
+                    LATES_REVISION=$(aws ecs register-task-definition --cli-input-json file://AWS/task-definition-prod.json | jq '.taskDefinition.revision')
+                    echo $LATES_REVISION
+                    aws ecs update-service --cluster Jenkins-Cls-Prd --service JenkinsApp-Service-Prod --task-definition JenkinsApp-TaskDefinition-Prod:$LATES_REVISION
                     '''
                 }                
                     
