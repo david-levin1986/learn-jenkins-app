@@ -71,6 +71,7 @@ pipeline {
                     // some block
                     sh '''
                     aws --version
+                    sed -i "s/#APP_VERSION#/$REACT_APP_VERSION"/g AWS/task-definition-prod.json
                     LATES_REVISION=$(aws ecs register-task-definition --cli-input-json file://AWS/task-definition-prod.json | jq '.taskDefinition.revision')
                     aws ecs update-service --cluster $AWC_ECS_CLS --service $AWS_ECS_SERVICE --task-definition $AWS_ECS_TASK:$LATES_REVISION
                     aws ecs wait services-stable --cluster $AWC_ECS_CLS --service $AWS_ECS_SERVICE
