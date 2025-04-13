@@ -23,7 +23,7 @@ pipeline {
                     // some block
                     sh '''
                     aws --version
-                    dnf install jq -y
+                    yum install jq -y
                     LATES_REVISION=$(aws ecs register-task-definition --cli-input-json file://AWS/task-definition-prod.json | jq '.taskDefinition.revision')
                     echo $LATES_REVISION
                     aws ecs update-service --cluster Jenkins-Cls-Prd --service JenkinsApp-Service-Prod --task-definition JenkinsApp-TaskDefinition-Prod:$LATES_REVISION
