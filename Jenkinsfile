@@ -23,8 +23,8 @@ pipeline {
                     // some block
                     sh '''
                     aws --version
-                    dnf install jq -y
-                    aws ecs register-task-definition --cli-input-json file://AWS/task-definition-prod.json | jq '.taskDefinition.revision'
+                    yum install jq -y
+                    $(aws ecs register-task-definition --cli-input-json file://AWS/task-definition-prod.json | jq '.taskDefinition.revision')
                     aws ecs update-service --cluster Jenkins-Cls-Prd --service JenkinsApp-Service-Prod --task-definition JenkinsApp-TaskDefinition-Prod:2
                     '''
                 }                
