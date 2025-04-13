@@ -27,7 +27,7 @@ pipeline {
                     LATES_REVISION=$(aws ecs register-task-definition --cli-input-json file://AWS/task-definition-prod.json | jq '.taskDefinition.revision')
                     echo $LATES_REVISION
                     aws ecs update-service --cluster Jenkins-Cls-Prd --service JenkinsApp-Service-Prod --task-definition JenkinsApp-TaskDefinition-Prod:$LATES_REVISION
-                    aws ecs wait service-stable --cluster Jenkins-Cls-Prd --service JenkinsApp-Service-Prod
+                    aws ecs wait services-stable --cluster Jenkins-Cls-Prd --service JenkinsApp-Service-Prod
                     '''
                 }                
                     
